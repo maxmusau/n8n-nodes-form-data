@@ -1,19 +1,19 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-form-data",
   "version": "0.1.0",
-  "description": "",
+  "description": "Form to display data",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://n8n.io",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "maxwell",
+    "email": "maxwell@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/maxmusau/n8n-nodes-form-data.git"
   },
   "main": "index.js",
   "scripts": {
@@ -29,17 +29,14 @@
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
-    ],
+    "credentials": [],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/FormData/FormData.node.js"
     ]
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
+    "@types/lodash": "^4.17.0",
     "@types/request-promise-native": "~1.0.15",
     "@typescript-eslint/parser": "~5.45",
     "eslint-plugin-n8n-nodes-base": "^1.11.0",
@@ -48,5 +45,8 @@
     "n8n-workflow": "*",
     "prettier": "^2.7.1",
     "typescript": "~4.8.4"
+  },
+  "dependencies": {
+    "@n8n/vm2": "^3.9.23"
   }
 }
