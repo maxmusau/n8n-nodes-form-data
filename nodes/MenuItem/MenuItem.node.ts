@@ -33,7 +33,7 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule } from './common.description';
+import { formFields, skipRule,branching } from './common.description';
 export class MenuItem implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -43,8 +43,8 @@ export class MenuItem implements INodeType {
 		icon: 'file:menuitem.png',
 		group: ['transform'],
 		version: 1,
-		subtitle: 'Form Node',
-		description: 'Captures user input through a form',
+		subtitle: 'Menu Node',
+		description: 'Displays a Menu Item',
 		defaults: {
 			name: 'Menu Item',
 		},
@@ -203,8 +203,7 @@ export class MenuItem implements INodeType {
 
 			//skip rule
 			skipRule,
-
-
+			branching,
 
 
 			//flags

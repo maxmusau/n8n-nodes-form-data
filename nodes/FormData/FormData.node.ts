@@ -33,7 +33,7 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule } from './common.description';
+import { formFields, skipRule,branching } from './common.description';
 export class FormData implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -203,8 +203,7 @@ export class FormData implements INodeType {
 
 			//skip rule
 			skipRule,
-
-
+			branching,
 
 
 			//flags

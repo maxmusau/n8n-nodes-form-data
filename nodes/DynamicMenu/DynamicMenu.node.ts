@@ -33,7 +33,7 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule } from './common.description';
+import { formFields, skipRule,branching } from './common.description';
 export class DynamicMenu implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -53,8 +53,8 @@ export class DynamicMenu implements INodeType {
 		properties: [
 			// Resources and operations will go here
 			{
-				displayName: 'Node Display Text',
-				name: 'displayText',
+				displayName: 'Menu Introduction Text',
+				name: 'introductionText',
 
 				type: 'string',
 				typeOptions: {
@@ -62,34 +62,71 @@ export class DynamicMenu implements INodeType {
 					rows: 5,
 
 				},
-				default: 'Please Enter your response',
+				default: 'Please select an option',
 				description: 'Text to display as introduction to the form',
 				required: true,
-
-
 			},
+
 			{
-				displayName: 'User Response',
-				name: 'response',
+				displayName: 'Variable Path',
+				name: 'jsonArrayInput',
+				type: 'string',
+				default: '[]',
+				description: 'A JSON array of objects. Each object should have the same structure.',
+				required: true,
+				typeOptions: {
+					editor: 'code',
+				},
+			},
+
+			{
+				displayName: 'Display Field',
+				name: 'MenuOptions',
 				type: 'string',
 				default: '',
-				description: 'User input response',
+				description: 'Field to display the configured menu options',
 				required: true,
 			},
-			formFields,
+			//displayfield
+//jsonpath
+			// item count
+			// charcount
+
 
 			{
-				displayName: 'Validation',
-				name: 'validation',
+				displayName: 'Level',
+				name: 'level',
 
-				type: 'string',
+				type: 'number',
 				typeOptions: {
 					multiline: true,
 				},
 				default: '',
-				description: 'Regular expression for the validation',
+				description: 'Displays the level of the menu', // It allows for ordering menu options with the
+				//first item having the lowest value of 0.
 
 			},
+			formFields,
+
+			//vaidation
+
+			//Input validation is only relevant for the form where the user is expected to provide an input
+
+			// {
+			// 	displayName: 'Validation',
+			// 	name: 'validation',
+
+			// 	type: 'string',
+			// 	typeOptions: {
+			// 		multiline: true,
+			// 	},
+			// 	default: '',
+			// 	description: 'Regular expression for the validation',
+
+			// },
+
+
+
 
 			{
 				displayName: 'Status',
@@ -196,6 +233,8 @@ export class DynamicMenu implements INodeType {
 
 			//skip rule
 			skipRule,
+
+			branching,
 
 
 
