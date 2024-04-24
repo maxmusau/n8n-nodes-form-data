@@ -33,7 +33,7 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule,branching } from './common.description';
+import { formFields, skipRule, branching } from './common.description';
 export class MenuNode implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -62,34 +62,60 @@ export class MenuNode implements INodeType {
 					rows: 5,
 
 				},
-				default: 'Please Enter your response',
-				description: 'Text to display as introduction to the form',
+				default: 'Please select an option',
+				description: 'Text to display as introduction for the menu',
 				required: true,
 
 
 			},
+
+			// {
+			// 	displayName: 'Path',
+			// 	name: 'path',
+
+			// 	type: 'string',
+			// 	typeOptions: {
+			// 		multiline: true,
+			// 	},
+			// 	default: '',
+			// 	description: 'Defines whether this is the natural path of the tree or a branch',
+			// 	required: true,
+
+			// },
 			{
-				displayName: 'User Response',
-				name: 'response',
+				displayName: 'Input VariableName',
+				name: 'variablename',
 				type: 'string',
 				default: '',
-				description: 'User input response',
-				required: true,
+				description: 'Variable name',
+				// required: true,
 			},
+
+			{
+				displayName: 'Level',
+				name: 'level',
+				type: 'number',
+				default: '',
+				// description: 'Level',
+				// required: true,
+			},
+
+
+
 			formFields,
 
-			{
-				displayName: 'Validation',
-				name: 'validation',
+			// {
+			// 	displayName: 'Validation',
+			// 	name: 'validation',
 
-				type: 'string',
-				typeOptions: {
-					multiline: true,
-				},
-				default: '',
-				description: 'Regular expression for the validation',
+			// 	type: 'string',
+			// 	typeOptions: {
+			// 		multiline: true,
+			// 	},
+			// 	default: '',
+			// 	description: 'Regular expression for the validation',
 
-			},
+			// },
 
 			{
 				displayName: 'Status',
@@ -110,32 +136,6 @@ export class MenuNode implements INodeType {
 
 
 
-
-
-
-			// {
-			// 	displayName: 'Processors',
-			// 	name: 'processors',
-			// 	type: 'collection',
-			// 	default: {},
-			// 	description: 'Processors to transform data',
-			// 	placeholder: 'Add Processor',
-			// 	options: [
-			// 		{
-			// 			displayName: 'Processor {{Name}} Name Name or ID',
-			// 			name: 'preProcessor',
-			// 			type: 'options',
-			// 			default: '',
-			// 			typeOptions: {
-			// 				loadOptionsMethod: 'getProcessors',
-			// 			},
-			// 			description: 'Choose from the list or specify an ID. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-			// 		},
-			// 	],
-			// },
-
-
-
 			// function code section
 			// ...pythonCodeDescription,
 			//Processor
@@ -143,25 +143,7 @@ export class MenuNode implements INodeType {
 
 
 			// Function section
-			{
-				displayName: 'Mode',
-				name: 'mode',
-				type: 'options',
-				noDataExpression: true,
-				options: [
-					{
-						name: 'Run Once for All Items',
-						value: 'runOnceForAllItems',
-						description: 'Run this code only once, no matter how many input items there are',
-					},
-					{
-						name: 'Run Once for Each Item',
-						value: 'runOnceForEachItem',
-						description: 'Run this code as many times as there are input items',
-					},
-				],
-				default: 'runOnceForAllItems',
-			},
+
 			{
 				displayName: 'Language',
 				name: 'language',

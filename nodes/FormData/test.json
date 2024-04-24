@@ -1,0 +1,90 @@
+{
+ "nodes": [
+   {
+     "parameters": {},
+     "name": "Start",
+     "type": "start",
+     "typeVersion": 1,
+     "position": [
+       240,
+       300
+     ]
+   },
+   {
+     "parameters": {
+       "jsCode": "const products = $node.context.data.whiteboard.products['loan.products'];\n\nreturn products.map((product) => ({\n  product: product,\n  options: {\n    name: product.product.name,\n    parentId: 1,\n    id: product.product.code,\n    node: {\n      type: {\n        path: 'main',\n        type: 'DYNAMIC_MENU',\n        config: {\n          jsonPath: `$.whiteboard.products['loan.products'][?(@.product.code==${product.product.code})]`,\n          displayField: 'product.name',\n          itemCount: -1,\n          charCount: -1,\n        },\n      },\n      processors: {\n        preProcessor: 'CurateProductList',\n      },\n      skipRule: '<%$.variables[\\'mf.productList.count\\']%> == 1',\n      branching: [\n        {\n          rule: '<%$.variables[\\'loan.products\\']['product.code']%> == 1100 && (<%$.subscriber.profile.products.1100.status%> == \\'NEW\\' || <%$.subscriber.profile.products.1100.status%> == \\'INACTIVE\\')',\n          branch: {\n            type: 'node',\n            nodeId: 'a109bb2c-357f-43fa-957a-2eef13115b42',\n          },\n        },\n        {\n          rule: '<%$.variables[\\'loan.products\\']['product.code']%> == 1100 && <%$.subscriber.profile.products.1100.status%> == \\'ACTIVE\\'',\n          branch: {\n            type: 'node',\n            nodeId: 'a109bb2c-357f-43fa-957a-2eef13115b43',\n          },\n        },\n        {\n          rule: '<%$.variables[\\'loan.products\\']['product.code']%> == 1700 && (<%$.subscriber.profile.products.1700.status%> == \\'NEW\\' || <%$.subscriber.profile.products.1700.status%> == \\'INACTIVE\\')',\n          branch: {\n            type: 'node',\n            nodeId: 'a109bb2c-357f-43fa-957a-2eef13115b42',\n          },\n        },\n        {\n          rule: '<%$.variables[\\'loan.products\\']['product.code']%> == 1700 && <%$.subscriber.profile.products.1700.status%> == \\'ACTIVE\\'',\n          branch: {\n            type: 'node',\n            nodeId: 'a109bb2c-357f-43fa-957a-2eef13115b43',\n          },\n        },\n      ],\n    },\n  }));\n"
+     },
+     "name": "Curate Product List",
+     "type": "code",
+     "typeVersion": 1,
+     "position": [
+       500,
+       300
+     ]
+   },
+   {
+     "parameters": {
+       "options": {
+         "channels": {
+           "SMS": {
+             "active": true
+           },
+           "USSD": {
+             "active": true
+           },
+           "APPUSSD": {
+             "active": true
+           }
+         },
+         "respOptions": {
+           "respType": "JSON"
+         }
+       }
+     },
+     "name": "Loan Products Menu",
+     "type": "n8n-nodes-base.menuTrigger",
+     "typeVersion": 1,
+     "position": [
+       800,
+       300
+     ],
+     "webhookId": "446c0b05-94d6-4dd0-8800-adb526756d83"
+   },
+   {
+     "parameters": {
+       "conditions": {
+         "string": [
+           {
+             "value": "=1"
+           }
+         ]
+       }
+     },
+     "name": "Opt In Menu",
+     "type": "n8n-nodes-base.branch",
+     "typeVersion": 1,
+     "position": [
+       1100,
+       300
+     ]
+   },
+   {
+     "parameters": {
+       "conditions": {
+         "string": [
+           {
+             "value": "=2"
+           }
+         ]
+       }
+     },
+     "name": "Opt Out Menu",
+     "type": "n8n-nodes-base.branch",
+     "typeVersion": 1,
+     "position": [
+       1100,
+       500
+     ]
+   }
+	]
+}

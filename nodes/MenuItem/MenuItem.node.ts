@@ -62,34 +62,48 @@ export class MenuItem implements INodeType {
 					rows: 5,
 
 				},
-				default: 'Please Enter your response',
+				default: 'Configure the display text ',
 				description: 'Text to display as introduction to the form',
 				required: true,
 
 
 			},
+
+			// {
+			// 	displayName: 'Path',
+			// 	name: 'path',
+
+			// 	type: 'string',
+			// 	typeOptions: {
+			// 		multiline: true,
+			// 	},
+			// 	default: '',
+			// 	description: 'Defines whether this is the natural path of the tree or a branch',
+			// 	required: true,
+
+			// },
 			{
-				displayName: 'User Response',
-				name: 'response',
+				displayName: 'VariableName',
+				name: 'variableName',
 				type: 'string',
 				default: '',
-				description: 'User input response',
-				required: true,
+				description: 'User input VariableName',
+				// required: true,
 			},
 			formFields,
 
-			{
-				displayName: 'Validation',
-				name: 'validation',
+			// {
+			// 	displayName: 'Validation',
+			// 	name: 'validation',
 
-				type: 'string',
-				typeOptions: {
-					multiline: true,
-				},
-				default: '',
-				description: 'Regular expression for the validation',
+			// 	type: 'string',
+			// 	typeOptions: {
+			// 		multiline: true,
+			// 	},
+			// 	default: '',
+			// 	description: 'Regular expression for the validation',
 
-			},
+			// },
 
 			{
 				displayName: 'Status',
@@ -104,6 +118,8 @@ export class MenuItem implements INodeType {
 				required: true,
 
 			},
+
+
 
 
 
@@ -143,25 +159,25 @@ export class MenuItem implements INodeType {
 
 
 			// Function section
-			{
-				displayName: 'Mode',
-				name: 'mode',
-				type: 'options',
-				noDataExpression: true,
-				options: [
-					{
-						name: 'Run Once for All Items',
-						value: 'runOnceForAllItems',
-						description: 'Run this code only once, no matter how many input items there are',
-					},
-					{
-						name: 'Run Once for Each Item',
-						value: 'runOnceForEachItem',
-						description: 'Run this code as many times as there are input items',
-					},
-				],
-				default: 'runOnceForAllItems',
-			},
+			// {
+			// 	displayName: 'Mode',
+			// 	name: 'mode',
+			// 	type: 'options',
+			// 	noDataExpression: true,
+			// 	options: [
+			// 		{
+			// 			name: 'Run Once for All Items',
+			// 			value: 'runOnceForAllItems',
+			// 			description: 'Run this code only once, no matter how many input items there are',
+			// 		},
+			// 		{
+			// 			name: 'Run Once for Each Item',
+			// 			value: 'runOnceForEachItem',
+			// 			description: 'Run this code as many times as there are input items',
+			// 		},
+			// 	],
+			// 	default: 'runOnceForAllItems',
+			// },
 			{
 				displayName: 'Language',
 				name: 'language',

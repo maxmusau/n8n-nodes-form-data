@@ -33,7 +33,8 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule,branching } from './common.description';
+import { formFields, skipRule, branching } from './common.description';
+// import { type } from '../DynamicMenu/pyodide/pyodide';
 export class FormData implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -53,6 +54,59 @@ export class FormData implements INodeType {
 		properties: [
 			// Resources and operations will go here
 			{
+				displayName: 'Path',
+				name: 'path',
+
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: '',
+				description: 'Defines whether this is the natural path of the tree or a branch',
+				required: true,
+
+			},
+			{
+				displayName: 'Node Name',
+				name: 'nodeName',
+
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: '',
+				description: 'Short descriptive name of the tree',//Only used for identification and is not shown to users
+				required: true,
+
+			},
+
+			{
+				displayName: 'Node Type',
+				name: 'nodeType',
+
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: 'FORM',
+				description: 'A form is used for displaying of messages and collection of data',//Only used for identification and is not shown to users
+				required: true,
+
+			},
+			{
+				displayName: 'Validation Failure Text',
+				name: 'validationFailureText',
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: '',
+				description: 'The validation failure text field displayed if the user enters an invalid value',
+
+			},
+
+
+			{
 				displayName: 'Node Display Text',
 				name: 'displayText',
 
@@ -62,24 +116,26 @@ export class FormData implements INodeType {
 					rows: 5,
 
 				},
-				default: 'Please Enter your response',
-				description: 'Text to display as introduction to the form',
+				default: 'Dear subscriber ......',
+				description: 'Text displayed when the form is the current node',
 				required: true,
 
 
 			},
+
+
 			{
-				displayName: 'User Response',
-				name: 'response',
+				displayName: 'Input VariableName',
+				name: 'variableName',
 				type: 'string',
 				default: '',
-				description: 'User input response',
+				description: 'Input Variable Name',
 				required: true,
 			},
 			formFields,
 
 			{
-				displayName: 'Validation',
+				displayName: 'Input Validation',
 				name: 'validation',
 
 				type: 'string',
@@ -87,12 +143,12 @@ export class FormData implements INodeType {
 					multiline: true,
 				},
 				default: '',
-				description: 'Regular expression for the validation',
+				description: 'Checks if the input matches the Regular expression for the validation',
 
 			},
 
 			{
-				displayName: 'Status',
+				displayName: 'Node Status',
 				name: 'status',
 
 				type: 'string',
@@ -106,36 +162,6 @@ export class FormData implements INodeType {
 			},
 
 
-
-
-
-
-
-
-
-			// {
-			// 	displayName: 'Processors',
-			// 	name: 'processors',
-			// 	type: 'collection',
-			// 	default: {},
-			// 	description: 'Processors to transform data',
-			// 	placeholder: 'Add Processor',
-			// 	options: [
-			// 		{
-			// 			displayName: 'Processor {{Name}} Name Name or ID',
-			// 			name: 'preProcessor',
-			// 			type: 'options',
-			// 			default: '',
-			// 			typeOptions: {
-			// 				loadOptionsMethod: 'getProcessors',
-			// 			},
-			// 			description: 'Choose from the list or specify an ID. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-			// 		},
-			// 	],
-			// },
-
-
-
 			// function code section
 			// ...pythonCodeDescription,
 			//Processor
@@ -146,7 +172,7 @@ export class FormData implements INodeType {
 			{
 				displayName: 'Mode',
 				name: 'mode',
-				type: 'options',
+				type: 'hidden',
 				noDataExpression: true,
 				options: [
 					{
@@ -162,6 +188,8 @@ export class FormData implements INodeType {
 				],
 				default: 'runOnceForAllItems',
 			},
+
+
 			{
 				displayName: 'Language',
 				name: 'language',
@@ -190,7 +218,7 @@ export class FormData implements INodeType {
 
 
 			{
-				displayName: 'Processors',
+				displayName: 'Languages',
 				name: 'language',
 				type: 'hidden',
 				displayOptions: {
@@ -198,7 +226,27 @@ export class FormData implements INodeType {
 						'@version': [1],
 					},
 				},
-				default: 'Processors',
+				default: 'Javascript',
+			},
+
+
+			{
+				displayName: 'Spring Expression Language',
+				name: 'springEL',
+				type: 'string',
+				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						resource: [
+							'branching',
+						],
+					},
+				},
+				description: 'Use [Spring Expression Language](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions) to dynamically calculate the value',
+				typeOptions: {
+					alwaysOpenEditWindow: true,
+				},
 			},
 
 			//skip rule
@@ -219,7 +267,7 @@ export class FormData implements INodeType {
 						displayName: 'Sanitize',
 						name: 'sanitize',
 						type: 'boolean',
-						default: false,
+						default: true,
 					},
 					{
 						displayName: 'Encrypt',
@@ -289,7 +337,7 @@ export class FormData implements INodeType {
 				context.item = context.$input.item;
 			}
 
-			const Sandbox =  JavaScriptSandbox;
+			const Sandbox = JavaScriptSandbox;
 			const sandbox = new Sandbox(context, code, index, this.helpers);
 			sandbox.on(
 				'output',
@@ -370,187 +418,187 @@ export class FormData implements INodeType {
 
 
 		"SkipRule Functionlity";
-// code to execute the skipRule functionality
+		// code to execute the skipRule functionality
 
 
 
 
 
-	const returnDataTrue: INodeExecutionData[] = [];
-	const returnDataFalse: INodeExecutionData[] = [];
+		const returnDataTrue: INodeExecutionData[] = [];
+		const returnDataFalse: INodeExecutionData[] = [];
 
-	const items = this.getInputData();
+		const items = this.getInputData();
 
-	let item: INodeExecutionData;
-	let combineOperation: string;
+		let item: INodeExecutionData;
+		let combineOperation: string;
 
-	const isDateObject = (value: NodeParameterValue) =>
-		Object.prototype.toString.call(value) === '[object Date]';
-	const isDateInvalid = (value: NodeParameterValue) => value?.toString() === 'Invalid Date';
+		const isDateObject = (value: NodeParameterValue) =>
+			Object.prototype.toString.call(value) === '[object Date]';
+		const isDateInvalid = (value: NodeParameterValue) => value?.toString() === 'Invalid Date';
 
-	// The compare operations
-	const compareOperationFunctions: {
-	[key: string]: (value1: NodeParameterValue, value2: NodeParameterValue) => boolean;
-} = {
-	after: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-		(value1 || 0) > (value2 || 0),
-		before: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-			(value1 || 0) < (value2 || 0),
+		// The compare operations
+		const compareOperationFunctions: {
+			[key: string]: (value1: NodeParameterValue, value2: NodeParameterValue) => boolean;
+		} = {
+			after: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) > (value2 || 0),
+			before: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) < (value2 || 0),
 			contains: (value1: NodeParameterValue, value2: NodeParameterValue) =>
 				(value1 || '').toString().includes((value2 || '').toString()),
-				notContains: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-					!(value1 || '').toString().includes((value2 || '').toString()),
-					endsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-						(value1 as string).endsWith(value2 as string),
-						notEndsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-							!(value1 as string).endsWith(value2 as string),
-							equal: (value1: NodeParameterValue, value2: NodeParameterValue) => value1 === value2,
-								notEqual: (value1: NodeParameterValue, value2: NodeParameterValue) => value1 !== value2,
-									larger: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-										(value1 || 0) > (value2 || 0),
-										largerEqual: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-											(value1 || 0) >= (value2 || 0),
-											smaller: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-												(value1 || 0) < (value2 || 0),
-												smallerEqual: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-													(value1 || 0) <= (value2 || 0),
-													startsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-														(value1 as string).startsWith(value2 as string),
-														notStartsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
-															!(value1 as string).startsWith(value2 as string),
-															isEmpty: (value1: NodeParameterValue) =>
-																[undefined, null, '', NaN].includes(value1 as string) ||
-																(typeof value1 === 'object' && value1 !== null && !isDateObject(value1)
-																	? Object.entries(value1 as string).length === 0
-																	: false) ||
-																(isDateObject(value1) && isDateInvalid(value1)),
-																isNotEmpty: (value1: NodeParameterValue) =>
-																	!(
-																		[undefined, null, '', NaN].includes(value1 as string) ||
-																		(typeof value1 === 'object' && value1 !== null && !isDateObject(value1)
-																			? Object.entries(value1 as string).length === 0
-																			: false) ||
-																		(isDateObject(value1) && isDateInvalid(value1))
-																	),
-																	regex: (value1: NodeParameterValue, value2: NodeParameterValue) => {
-																		const regexMatch = (value2 || '').toString().match(new RegExp('^/(.*?)/([gimusy]*)$'));
+			notContains: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				!(value1 || '').toString().includes((value2 || '').toString()),
+			endsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 as string).endsWith(value2 as string),
+			notEndsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				!(value1 as string).endsWith(value2 as string),
+			equal: (value1: NodeParameterValue, value2: NodeParameterValue) => value1 === value2,
+			notEqual: (value1: NodeParameterValue, value2: NodeParameterValue) => value1 !== value2,
+			larger: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) > (value2 || 0),
+			largerEqual: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) >= (value2 || 0),
+			smaller: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) < (value2 || 0),
+			smallerEqual: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 || 0) <= (value2 || 0),
+			startsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				(value1 as string).startsWith(value2 as string),
+			notStartsWith: (value1: NodeParameterValue, value2: NodeParameterValue) =>
+				!(value1 as string).startsWith(value2 as string),
+			isEmpty: (value1: NodeParameterValue) =>
+				[undefined, null, '', NaN].includes(value1 as string) ||
+				(typeof value1 === 'object' && value1 !== null && !isDateObject(value1)
+					? Object.entries(value1 as string).length === 0
+					: false) ||
+				(isDateObject(value1) && isDateInvalid(value1)),
+			isNotEmpty: (value1: NodeParameterValue) =>
+				!(
+					[undefined, null, '', NaN].includes(value1 as string) ||
+					(typeof value1 === 'object' && value1 !== null && !isDateObject(value1)
+						? Object.entries(value1 as string).length === 0
+						: false) ||
+					(isDateObject(value1) && isDateInvalid(value1))
+				),
+			regex: (value1: NodeParameterValue, value2: NodeParameterValue) => {
+				const regexMatch = (value2 || '').toString().match(new RegExp('^/(.*?)/([gimusy]*)$'));
 
-																		let regex: RegExp;
-																		if (!regexMatch) {
-																			regex = new RegExp((value2 || '').toString());
-																		} else if (regexMatch.length === 1) {
-																			regex = new RegExp(regexMatch[1]);
-																		} else {
-																			regex = new RegExp(regexMatch[1], regexMatch[2]);
-																		}
+				let regex: RegExp;
+				if (!regexMatch) {
+					regex = new RegExp((value2 || '').toString());
+				} else if (regexMatch.length === 1) {
+					regex = new RegExp(regexMatch[1]);
+				} else {
+					regex = new RegExp(regexMatch[1], regexMatch[2]);
+				}
 
-																		return !!(value1 || '').toString().match(regex);
-																	},
-																		notRegex: (value1: NodeParameterValue, value2: NodeParameterValue) => {
-																			const regexMatch = (value2 || '').toString().match(new RegExp('^/(.*?)/([gimusy]*)$'));
+				return !!(value1 || '').toString().match(regex);
+			},
+			notRegex: (value1: NodeParameterValue, value2: NodeParameterValue) => {
+				const regexMatch = (value2 || '').toString().match(new RegExp('^/(.*?)/([gimusy]*)$'));
 
-																			let regex: RegExp;
-																			if (!regexMatch) {
-																				regex = new RegExp((value2 || '').toString());
-																			} else if (regexMatch.length === 1) {
-																				regex = new RegExp(regexMatch[1]);
-																			} else {
-																				regex = new RegExp(regexMatch[1], regexMatch[2]);
-																			}
+				let regex: RegExp;
+				if (!regexMatch) {
+					regex = new RegExp((value2 || '').toString());
+				} else if (regexMatch.length === 1) {
+					regex = new RegExp(regexMatch[1]);
+				} else {
+					regex = new RegExp(regexMatch[1], regexMatch[2]);
+				}
 
-																			return !(value1 || '').toString().match(regex);
-																		},
+				return !(value1 || '').toString().match(regex);
+			},
 		};
 
-// Converts the input data of a dateTime into a number for easy compare
-const convertDateTime = (value: NodeParameterValue): number => {
-	let returnValue: number | undefined = undefined;
-	if (typeof value === 'string') {
-		returnValue = new Date(value).getTime();
-	} else if (typeof value === 'number') {
-		returnValue = value;
-	}
-	if (moment.isMoment(value)) {
-		returnValue = value.unix();
-	}
-	if ((value as unknown as object) instanceof Date) {
-		returnValue = (value as unknown as Date).getTime();
-	}
-
-	if (returnValue === undefined || isNaN(returnValue)) {
-		throw new NodeOperationError(
-			this.getNode(),
-			`The value "${value}" is not a valid DateTime.`,
-		);
-	}
-
-	return returnValue;
-};
-
-// The different dataTypes to check the values in
-const dataTypes = ['boolean', 'dateTime', 'number', 'string'];
-
-// Iterate over all items to check which ones should be output as via output "true" and
-// which ones via output "false"
-let dataType: string;
-let compareOperationResult: boolean;
-let value1: NodeParameterValue, value2: NodeParameterValue;
-itemLoop: for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-	item = items[itemIndex];
-
-	let compareData: INodeParameters;
-
-	combineOperation = this.getNodeParameter('combineOperation', itemIndex) as string;
-
-	// Check all the values of the different dataTypes
-	for (dataType of dataTypes) {
-		// Check all the values of the current dataType
-		for (compareData of this.getNodeParameter(
-			`conditions.${dataType}`,
-			itemIndex,
-			[],
-		) as INodeParameters[]) {
-			// Check if the values passes
-
-			value1 = compareData.value1 as NodeParameterValue;
-			value2 = compareData.value2 as NodeParameterValue;
-
-			if (dataType === 'dateTime') {
-				value1 = convertDateTime(value1);
-				value2 = convertDateTime(value2);
+		// Converts the input data of a dateTime into a number for easy compare
+		const convertDateTime = (value: NodeParameterValue): number => {
+			let returnValue: number | undefined = undefined;
+			if (typeof value === 'string') {
+				returnValue = new Date(value).getTime();
+			} else if (typeof value === 'number') {
+				returnValue = value;
+			}
+			if (moment.isMoment(value)) {
+				returnValue = value.unix();
+			}
+			if ((value as unknown as object) instanceof Date) {
+				returnValue = (value as unknown as Date).getTime();
 			}
 
-			compareOperationResult = compareOperationFunctions[compareData.operation as string](
-				value1,
-				value2,
-			);
+			if (returnValue === undefined || isNaN(returnValue)) {
+				throw new NodeOperationError(
+					this.getNode(),
+					`The value "${value}" is not a valid DateTime.`,
+				);
+			}
 
-			if (compareOperationResult && combineOperation === 'any') {
-				// If it passes and the operation is "any" we do not have to check any
-				// other ones as it should pass anyway. So go on with the next item.
+			return returnValue;
+		};
+
+		// The different dataTypes to check the values in
+		const dataTypes = ['boolean', 'dateTime', 'number', 'string'];
+
+		// Iterate over all items to check which ones should be output as via output "true" and
+		// which ones via output "false"
+		let dataType: string;
+		let compareOperationResult: boolean;
+		let value1: NodeParameterValue, value2: NodeParameterValue;
+		itemLoop: for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+			item = items[itemIndex];
+
+			let compareData: INodeParameters;
+
+			combineOperation = this.getNodeParameter('combineOperation', itemIndex) as string;
+
+			// Check all the values of the different dataTypes
+			for (dataType of dataTypes) {
+				// Check all the values of the current dataType
+				for (compareData of this.getNodeParameter(
+					`conditions.${dataType}`,
+					itemIndex,
+					[],
+				) as INodeParameters[]) {
+					// Check if the values passes
+
+					value1 = compareData.value1 as NodeParameterValue;
+					value2 = compareData.value2 as NodeParameterValue;
+
+					if (dataType === 'dateTime') {
+						value1 = convertDateTime(value1);
+						value2 = convertDateTime(value2);
+					}
+
+					compareOperationResult = compareOperationFunctions[compareData.operation as string](
+						value1,
+						value2,
+					);
+
+					if (compareOperationResult && combineOperation === 'any') {
+						// If it passes and the operation is "any" we do not have to check any
+						// other ones as it should pass anyway. So go on with the next item.
+						returnDataTrue.push(item);
+						continue itemLoop;
+					} else if (!compareOperationResult && combineOperation === 'all') {
+						// If it fails and the operation is "all" we do not have to check any
+						// other ones as it should be not pass anyway. So go on with the next item.
+						returnDataFalse.push(item);
+						continue itemLoop;
+					}
+				}
+			}
+
+			if (combineOperation === 'all') {
+				// If the operation is "all" it means the item did match all conditions
+				// so it passes.
 				returnDataTrue.push(item);
-				continue itemLoop;
-			} else if (!compareOperationResult && combineOperation === 'all') {
-				// If it fails and the operation is "all" we do not have to check any
-				// other ones as it should be not pass anyway. So go on with the next item.
+				returnDataTrue.push(...returnData.flat());
+			} else {
+				// If the operation is "any" it means the the item did not match any condition.
 				returnDataFalse.push(item);
-				continue itemLoop;
 			}
 		}
-	}
 
-	if (combineOperation === 'all') {
-		// If the operation is "all" it means the item did match all conditions
-		// so it passes.
-		returnDataTrue.push(item);
-		returnDataTrue.push(...returnData.flat());
-	} else {
-		// If the operation is "any" it means the the item did not match any condition.
-		returnDataFalse.push(item);
-	}
-}
-
-return [returnDataTrue, returnDataFalse];
+		return [returnDataTrue, returnDataFalse];
 	}
 }
 

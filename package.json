@@ -31,7 +31,10 @@
     "n8nNodesApiVersion": 1,
     "credentials": [],
     "nodes": [
-      "dist/nodes/FormData/FormData.node.js"
+      "dist/nodes/FormData/FormData.node.js",
+      "dist/nodes/DynamicMenu/DynamicMenu.node.js",
+      "dist/nodes/MenuItem/MenuItem.node.js",
+      "dist/nodes/MenuNode/MenuNode.node.js"
     ]
   },
   "devDependencies": {

@@ -227,6 +227,8 @@ export const skipRule: INodeProperties = {
 					displayName: 'Value 2',
 					name: 'value2',
 					type: 'number',
+
+
 					displayOptions: {
 						hide: {
 							operation: ['isEmpty', 'isNotEmpty'],
@@ -347,6 +349,8 @@ export const branching: INodeProperties = {
 		multipleValues: true,
 		sortable: true,
 	},
+
+
 	description: 'The type of values to compare',
 	default: {},
 	options: [
@@ -595,6 +599,12 @@ export const branching: INodeProperties = {
 		},
 	],
 };
+
+
+
+
+
+
 
 const commonDescription: INodeProperties = {
 	displayName: 'Python',

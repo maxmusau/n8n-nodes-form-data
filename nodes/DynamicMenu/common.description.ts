@@ -34,7 +34,7 @@ export const formFields: INodeProperties = {
 					noDataExpression: true,
 					// placeholder: 'Subscriber ID',
 					description: 'Label appears above the input field',
-					options:[
+					options: [
 						//String, Number, JSONArray, JSONObject
 						{
 							name: 'String',
@@ -59,6 +59,9 @@ export const formFields: INodeProperties = {
 
 
 
+
+
+
 				// add the input field for entering the field value
 				{
 					displayName: 'Value',
@@ -80,18 +83,78 @@ export const formFields: INodeProperties = {
 };
 
 
+export const config: INodeProperties = {
+	displayName: 'Config',
+	name: 'menuConfig',
+	// placeholder: 'Add a variable',
+	type: 'fixedCollection',
+	default: { values: [{ label: '', fieldType: 'string' }] },
+	typeOptions: {
+		multipleValues: false,
+		sortable: true,
+	},
+	options: [
+		{
+			displayName: 'Values',
+			name: 'values',
+			values: [
+				{
+					displayName: 'JsonPath',
+					name: 'jsonPath',
+					type: 'string',
+					default: '[]',
+					description: 'The JsonPath to the variable that contains the dynamic menu data',
+					required: true,
+
+				},
+
+				//
+				{
+					displayName: 'DisplayField',
+					name: 'displayField',
+					type: 'string',
+					default: '',
+					description: 'The field in the JSONObject that will be added as a menu option',
+					required: true,
+				},
+
+				//
+				{
+					displayName: 'ItemCount',
+					name: 'itemCount',
+					type: 'number',
+					default: 0,
+					description: 'Maximum number of items to display per page',
+					required: true,
+				},
+
+				{
+					displayName: 'CharCount',
+					name: 'charCount',
+					type: 'number',
+					default: 0,
+					description: 'Character count',
+					required: true,
+				},
+
+			],
+		},
+	],
+};
+
+
 export const skipRule: INodeProperties = {
 
 	displayName: 'Skip Rule',
-		name: 'skipRule',
-			placeholder: 'Add Skip Rule',
-				type: 'fixedCollection',
-					typeOptions: {
+	name: 'skipRule',
+	placeholder: 'Add Skip Rule',
+	type: 'fixedCollection',
+	typeOptions: {
 		multipleValues: true,
-			sortable: true,
-					},
+		sortable: true,
+	},
 	description: 'The type of values to compare',
-					default: { },
+	default: {},
 	options: [
 		{
 			name: 'boolean',
@@ -337,7 +400,7 @@ export const skipRule: INodeProperties = {
 			],
 		},
 	],
-				};
+};
 
 export const branching: INodeProperties = {
 
@@ -609,54 +672,55 @@ export const branching: INodeProperties = {
 
 
 
-const commonDescription: INodeProperties = {
-	displayName: 'Python',
-	name: 'pythonCode',
-	type: 'string',
-	typeOptions: {
-		editor: 'codeNodeEditor',
-		alwaysOpenEditWindow: true,
-		editorLanguage: 'python',
-		rows:5,
 
-		codeAutocomplete: 'functionItem',
-	},
-	default: '// Code here will run once per input item',
-	description:
-		'Python code to execute.<br><br>Tip: You can use built-in methods and variables like <code>_today</code> for dates and <code>_jmespath</code> for querying JSON structures. <a href="https://docs.n8n.io/code/builtin/">Learn more</a>.',
-	noDataExpression: true,
-};
+// const commonDescription: INodeProperties = {
+// 	displayName: 'Python',
+// 	name: 'pythonCode',
+// 	type: 'string',
+// 	typeOptions: {
+// 		editor: 'codeNodeEditor',
+// 		alwaysOpenEditWindow: true,
+// 		editorLanguage: 'python',
+// 		rows: 5,
 
-export const pythonCodeDescription: INodeProperties[] =[
-	{
-		...commonDescription,
-		displayOptions: {
-			show: {
-				language: ['python'],
-				mode: ['runOnceForAllItems'],
-			},
-		},
-	},
-	{
-		...commonDescription,
-		displayOptions: {
-			show: {
-				language: ['python'],
-				mode: ['runOnceForEachItem'],
-			},
-		},
-	},
-	{
-		displayName:
-			'Debug by using <code>print()</code> statements and viewing their output in the browser console.',
-		name: 'notice',
-		type: 'notice',
-		displayOptions: {
-			show: {
-				language: ['python'],
-			},
-		},
-		default: '',
-	},
-];
+// 		codeAutocomplete: 'functionItem',
+// 	},
+// 	default: '// Code here will run once per input item',
+// 	description:
+// 		'Python code to execute.<br><br>Tip: You can use built-in methods and variables like <code>_today</code> for dates and <code>_jmespath</code> for querying JSON structures. <a href="https://docs.n8n.io/code/builtin/">Learn more</a>.',
+// 	noDataExpression: true,
+// };
+
+// export const pythonCodeDescription: INodeProperties[] = [
+// 	{
+// 		...commonDescription,
+// 		displayOptions: {
+// 			show: {
+// 				language: ['python'],
+// 				mode: ['runOnceForAllItems'],
+// 			},
+// 		},
+// 	},
+// 	{
+// 		...commonDescription,
+// 		displayOptions: {
+// 			show: {
+// 				language: ['python'],
+// 				mode: ['runOnceForEachItem'],
+// 			},
+// 		},
+// 	},
+// 	{
+// 		displayName:
+// 			'Debug by using <code>print()</code> statements and viewing their output in the browser console.',
+// 		name: 'notice',
+// 		type: 'notice',
+// 		displayOptions: {
+// 			show: {
+// 				language: ['python'],
+// 			},
+// 		},
+// 		default: '',
+// 	},
+// ];
 

@@ -57,50 +57,50 @@
 // 	}
 
 
-// // 	private async runCodeInPython<T>() {
-// // 		const packageCacheDir = this.helpers.getStorage();
+// 	private async runCodeInPython<T>() {
+// 		const packageCacheDir = this.helpers.getStorage();
 
 
-// // 		const pyodide = await LoadPyodide(packageCacheDir);
+// 		const pyodide = await LoadPyodide(packageCacheDir);
 
-// // 		let executionResult;
-// // 		try {
-// // 			await pyodide.runPythonAsync('jsproxy_typedict[0] = type(Object.new().as_object_map())');
+// 		let executionResult;
+// 		try {
+// 			await pyodide.runPythonAsync('jsproxy_typedict[0] = type(Object.new().as_object_map())');
 
-// // 			await pyodide.loadPackagesFromImports(this.pythonCode);
+// 			await pyodide.loadPackagesFromImports(this.pythonCode);
 
-// // 			const dict = pyodide.globals.get('dict');
-// // 			const globalsDict: PyDict = dict();
-// // 			for (const key of Object.keys(this.context)) {
-// // 				if ((key === '_env' && envAccessBlocked) || key === '_node') continue;
-// // 				const value = this.context[key];
-// // 				globalsDict.set(key, value);
-// // 			}
+// 			const dict = pyodide.globals.get('dict');
+// 			const globalsDict: PyDict = dict();
+// 			for (const key of Object.keys(this.context)) {
+// 				if ((key === '_env' && envAccessBlocked) || key === '_node') continue;
+// 				const value = this.context[key];
+// 				globalsDict.set(key, value);
+// 			}
 
-// // 			pyodide.setStdout({ batched: (str) => this.emit('output', str) });
+// 			pyodide.setStdout({ batched: (str) => this.emit('output', str) });
 
-// // 			const runCode = `
-// // async def __main():
-// // ${this.pythonCode
-// // 					.split('\n')
-// // 					.map((line) => '  ' + line)
-// // 					.join('\n')}
-// // await __main()`;
-// // 			executionResult = await pyodide.runPythonAsync(runCode, { globals: globalsDict });
-// // 			globalsDict.destroy();
-// // 		} catch (error) {
-// // 			throw this.getPrettyError(error as PyodideError);
-// // 		}
+// 			const runCode = `
+// async def __main():
+// ${this.pythonCode
+// 					.split('\n')
+// 					.map((line) => '  ' + line)
+// 					.join('\n')}
+// await __main()`;
+// 			executionResult = await pyodide.runPythonAsync(runCode, { globals: globalsDict });
+// 			globalsDict.destroy();
+// 		} catch (error) {
+// 			throw this.getPrettyError(error as PyodideError);
+// 		}
 
-// // 		if (executionResult?.toJs) {
-// // 			return executionResult.toJs({
-// // 				dict_converter: Object.fromEntries,
-// // 				create_proxies: false,
-// // 			}) as T;
-// // 		}
+// 		if (executionResult?.toJs) {
+// 			return executionResult.toJs({
+// 				dict_converter: Object.fromEntries,
+// 				create_proxies: false,
+// 			}) as T;
+// 		}
 
-// // 		return executionResult as T;
-// // 	}
+// 		return executionResult as T;
+// 	}
 
 // 	private getPrettyError(error: PyodideError): Error {
 // 		const errorTypeIndex = error.message.indexOf(error.type);
