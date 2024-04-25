@@ -334,7 +334,7 @@ export class FormData implements INodeType {
 				type: 'string',
 				typeOptions: {
 					multiline: true,
-					multipleValues:true,
+					// multipleValues:true,
 					rows: 2,
 				},
 				default: '',
