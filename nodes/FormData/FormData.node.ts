@@ -201,7 +201,7 @@ export class FormData implements INodeType {
 				options: [
 					{
 						displayName: 'Pre Processor',
-						name: 'preProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Value',
@@ -213,7 +213,7 @@ export class FormData implements INodeType {
 					},
 					{
 						displayName: 'Input Processor',
-						name: 'inputProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -226,7 +226,7 @@ export class FormData implements INodeType {
 
 					{
 						displayName: 'Post Processor',
-						name: 'postProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -334,6 +334,7 @@ export class FormData implements INodeType {
 				type: 'string',
 				typeOptions: {
 					multiline: true,
+					multipleValues:true,
 					rows: 2,
 				},
 				default: '',
@@ -348,6 +349,7 @@ export class FormData implements INodeType {
 				type: 'fixedCollection',
 				typeOptions: {
 					multiline: true,
+					multipleValues:true,
 				},
 				default: {},
 				description: 'Displays the branching rule to be executed',
@@ -355,7 +357,7 @@ export class FormData implements INodeType {
 				options: [
 					{
 						displayName: 'Node Branch',
-						name: 'node',
+						name: 'nodeBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',
@@ -367,7 +369,7 @@ export class FormData implements INodeType {
 					},
 					{
 						displayName: 'Text Branch',
-						name: 'text',
+						name: 'textBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',

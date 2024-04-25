@@ -15,12 +15,12 @@ export const formFields: INodeProperties = {
 	},
 	options: [
 		{
-			displayName: 'Values',
+			displayName: 'Variables',
 			name: 'values',
 			values: [
 				{
 					displayName: 'Variable Name',
-					name: 'fieldLabel',
+					name: 'name',
 					type: 'string',
 					default: '',
 					placeholder: 'Subscriber ID',
@@ -29,7 +29,7 @@ export const formFields: INodeProperties = {
 				},
 				{
 					displayName: 'Variable Type',
-					name: 'fieldLabel',
+					name: 'type',
 					type: 'options',
 					default: 'string',
 					noDataExpression: true,
@@ -63,7 +63,7 @@ export const formFields: INodeProperties = {
 				// add the input field for entering the field value
 				{
 					displayName: 'Value',
-					name: 'fieldValue',
+					name: 'value',
 					type: 'string',
 					default: '',
 					placeholder: 'Enter value e.g 1023',

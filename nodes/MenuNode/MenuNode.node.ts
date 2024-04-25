@@ -142,7 +142,7 @@ export class MenuNode implements INodeType {
 				type: 'string',
 				default: '',
 				description: 'Input Variable Name',
-				required: true,
+				// required: true,
 			},
 			{
 				displayName: 'Input Validation',
@@ -246,7 +246,7 @@ export class MenuNode implements INodeType {
 				options: [
 					{
 						displayName: 'Pre Processor',
-						name: 'preProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Value',
@@ -258,10 +258,10 @@ export class MenuNode implements INodeType {
 					},
 					{
 						displayName: 'Input Processor',
-						name: 'inputProcessor',
+						name: 'processor',
 						values: [
 							{
-								displayName: 'Name',
+								displayName: 'Input Processor',
 								name: 'inputProcessor',
 								default: '',
 								type: 'string',
@@ -271,7 +271,7 @@ export class MenuNode implements INodeType {
 
 					{
 						displayName: 'Post Processor',
-						name: 'postProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -358,6 +358,7 @@ export class MenuNode implements INodeType {
 				type: 'string',
 				typeOptions: {
 					multiline: true,
+					multipleValues: true,
 					rows: 2,
 				},
 				default: '',
@@ -372,6 +373,7 @@ export class MenuNode implements INodeType {
 				type: 'fixedCollection',
 				typeOptions: {
 					multiline: true,
+					multipleValues: true,
 				},
 				default: {},
 				description: 'Displays the branching rule to be executed',
@@ -379,7 +381,7 @@ export class MenuNode implements INodeType {
 				options: [
 					{
 						displayName: 'Node Branch',
-						name: 'node',
+						name: 'nodeBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',
@@ -391,7 +393,7 @@ export class MenuNode implements INodeType {
 					},
 					{
 						displayName: 'Text Branch',
-						name: 'text',
+						name: 'textBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',

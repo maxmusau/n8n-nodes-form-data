@@ -112,6 +112,7 @@ export class MenuItem implements INodeType {
 					multiline: true,
 				},
 				default: '',
+				// required:false,
 				description: 'The validation failure text field displayed if the user enters an invalid value',
 
 			},
@@ -141,7 +142,7 @@ export class MenuItem implements INodeType {
 				type: 'string',
 				default: '',
 				description: 'Input Variable Name',
-				required: true,
+				// required: true,
 			},
 			formFields,
 
@@ -203,7 +204,7 @@ export class MenuItem implements INodeType {
 				options: [
 					{
 						displayName: 'Pre Processor',
-						name: 'preProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Value',
@@ -215,7 +216,7 @@ export class MenuItem implements INodeType {
 					},
 					{
 						displayName: 'Input Processor',
-						name: 'inputProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -228,7 +229,7 @@ export class MenuItem implements INodeType {
 
 					{
 						displayName: 'Post Processor',
-						name: 'postProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -313,6 +314,7 @@ export class MenuItem implements INodeType {
 				type: 'string',
 				typeOptions: {
 					multiline: true,
+					multipleValues:true,
 					rows: 2,
 				},
 				default: '',
@@ -326,6 +328,7 @@ export class MenuItem implements INodeType {
 				type: 'fixedCollection',
 				typeOptions: {
 					multiline: true,
+					multipleValues:true,
 				},
 				default: {},
 				description: 'Displays the branching rule to be executed',
@@ -333,7 +336,7 @@ export class MenuItem implements INodeType {
 				options: [
 					{
 						displayName: 'Node Branch',
-						name: 'node',
+						name: 'nodeBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',
@@ -345,7 +348,7 @@ export class MenuItem implements INodeType {
 					},
 					{
 						displayName: 'Text Branch',
-						name: 'text',
+						name: 'textBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',

@@ -97,13 +97,13 @@ export class DynamicMenu implements INodeType {
 					multiline: true,
 				},
 				default: 'DYNAMIC_MENU',
-				description: 'Ddescribes the dynamic menu that does not have predetermined options',//Its options are
+				description: 'Describes the dynamic menu that does not have predetermined options',//Its options are
 				// derived from a JSONArray which can either be preconfigured or fetched from a database or
 				// 3rd party system
 				required: true,
 
 			},
-			
+
 			// menu configuration
 			config,
 
@@ -186,6 +186,7 @@ export class DynamicMenu implements INodeType {
 				type: 'fixedCollection',
 				typeOptions: {
 					multiline: true,
+					// multipleValues: true,
 				},
 				default: {},
 				description: 'Displays the processor to be executed',
@@ -193,7 +194,7 @@ export class DynamicMenu implements INodeType {
 				options: [
 					{
 						displayName: 'Pre Processor',
-						name: 'preProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Value',
@@ -205,7 +206,7 @@ export class DynamicMenu implements INodeType {
 					},
 					{
 						displayName: 'Input Processor',
-						name: 'inputProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -218,7 +219,7 @@ export class DynamicMenu implements INodeType {
 
 					{
 						displayName: 'Post Processor',
-						name: 'postProcessor',
+						name: 'processor',
 						values: [
 							{
 								displayName: 'Name',
@@ -296,6 +297,7 @@ export class DynamicMenu implements INodeType {
 				type: 'string',
 				typeOptions: {
 					multiline: true,
+					multipleValues:true,
 					rows: 2,
 				},
 				default: '',
@@ -310,6 +312,7 @@ export class DynamicMenu implements INodeType {
 				type: 'fixedCollection',
 				typeOptions: {
 					multiline: true,
+					multipleValues: true,
 				},
 				default: {},
 				description: 'Displays the branching rule to be executed',
@@ -317,7 +320,7 @@ export class DynamicMenu implements INodeType {
 				options: [
 					{
 						displayName: 'Node Branch',
-						name: 'node',
+						name: 'nodeBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',
@@ -329,7 +332,7 @@ export class DynamicMenu implements INodeType {
 					},
 					{
 						displayName: 'Text Branch',
-						name: 'text',
+						name: 'textBranch',
 						values: [
 							{
 								displayName: 'Branching Rule',
