@@ -5,7 +5,7 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export const formFields: INodeProperties = {
 	displayName: 'Variables',
-	name: 'formFields',
+	name: 'variables',
 	placeholder: 'Add a variable',
 	type: 'fixedCollection',
 	default: { values: [{ label: '', fieldType: 'text' }] },
@@ -20,7 +20,7 @@ export const formFields: INodeProperties = {
 			values: [
 				{
 					displayName: 'Variable Name',
-					name: 'fieldLabel',
+					name: 'variableName',
 					type: 'string',
 					default: '',
 					placeholder: 'Subscriber ID',
@@ -29,13 +29,13 @@ export const formFields: INodeProperties = {
 				},
 				{
 					displayName: 'Variable Type',
-					name: 'fieldLabel',
+					name: 'variableType',
 					type: 'options',
 					default: 'string',
 					noDataExpression: true,
 					// placeholder: 'Subscriber ID',
 					description: 'Label appears above the input field',
-					options:[
+					options: [
 
 						//String, Number, JSONArray, JSONObject
 
@@ -63,7 +63,7 @@ export const formFields: INodeProperties = {
 				// add the input field for entering the field value
 				{
 					displayName: 'Value',
-					name: 'fieldValue',
+					name: 'variableValue',
 					type: 'string',
 					default: '',
 					placeholder: 'Enter value e.g 1023',
@@ -78,18 +78,77 @@ export const formFields: INodeProperties = {
 };
 
 
+export const branchingRule: INodeProperties = {
+	displayName: 'Branching Rule',
+	name: 'branching',
+	placeholder: 'Add a branching rule',
+	type: 'fixedCollection',
+	default: { values: [{ label: '', fieldType: 'text' }] },
+	typeOptions: {
+		multipleValues: true,
+		sortable: true,
+	},
+	options: [
+		{
+			displayName: 'Branching Rule',
+			name: 'branching',
+			values: [
+				{
+					displayName: 'Rule',
+					name: 'rule',
+					type: 'string',
+					default: '',
+					placeholder: 'Subscriber ID',
+					description: 'Label appears above the input field',
+
+				},
+				{
+					displayName: 'Branch Type',
+					name: 'branchType',
+					type: 'options',
+					default: 'text',
+					noDataExpression: true,
+					// placeholder: 'Subscriber ID',
+					description: 'Label appears above the input field',
+					options: [
+
+						//String, Number, JSONArray, JSONObject
+						{
+							name: 'Node',
+							value: 'node',
+						},
+
+						{
+							name: 'Text',
+							value: 'text',
+						},
+
+
+					]
+
+				},
+
+				// add the input field for entering the field value
+
+				//
+
+			],
+		},
+	],
+};
+
 export const skipRule: INodeProperties = {
 
 	displayName: 'Skip Rule',
-		name: 'skipRule',
-			placeholder: 'Add Skip Rule',
-				type: 'fixedCollection',
-					typeOptions: {
+	name: 'skipRule',
+	placeholder: 'Add Skip Rule',
+	type: 'fixedCollection',
+	typeOptions: {
 		multipleValues: true,
-			sortable: true,
-					},
+		sortable: true,
+	},
 	description: 'The type of values to compare',
-					default: { },
+	default: {},
 	options: [
 		{
 			name: 'boolean',
@@ -337,7 +396,55 @@ export const skipRule: INodeProperties = {
 			],
 		},
 	],
-				};
+};
+
+// export const branching: INodeProperties = {
+
+// 	displayName: 'Branching',
+// 	name: 'branching',
+// 	placeholder: 'Add a branching Rule',
+// 	type: 'fixedCollection',
+// 	default:{ values: [{ label: '', fieldType: 'text' }] },
+// 	typeOptions: {
+// 		multipleValues: true,
+// 		sortable: true,
+// 		rows: 3,
+// 	},
+// 			options: [
+// 		{
+// 			displayName: 'Branching',
+// 			name: 'branching',
+// 			values: [
+// 				{
+// 					displayName: 'Branching Rule',
+// 					name: 'rule',
+// 					type: 'string',
+// 					default: '',
+// 					description: 'The rule to define the branching',
+// 				},
+// 				{
+// 					displayName: 'Branch Type',
+// 					name: 'branchType',
+// 					default: 'text',
+// 					description: 'Operation to decide which branch to take',
+// 					type: 'options',
+// 					noDataExpression: true,
+// 					// eslint-disable-next-line n8n-nodes-base/node-param-options-type-unsorted-items
+// 					options: [
+// 						{
+// 							name: 'Text Branch',
+// 							value: 'text',
+// 						},
+// 						{
+// 							name: 'Node Branch',
+// 							value: 'node',
+// 						},
+// 					]
+// 					},
+// 				],
+// 				},
+// 			],
+// 		}
 
 export const branching: INodeProperties = {
 
@@ -351,9 +458,12 @@ export const branching: INodeProperties = {
 	},
 
 
+
 	description: 'The type of values to compare',
 	default: {},
 	options: [
+
+
 		{
 			name: 'boolean',
 			displayName: 'Boolean',
@@ -614,7 +724,7 @@ const commonDescription: INodeProperties = {
 		editor: 'codeNodeEditor',
 		alwaysOpenEditWindow: true,
 		editorLanguage: 'python',
-		rows:5,
+		rows: 5,
 
 		codeAutocomplete: 'functionItem',
 	},
@@ -624,7 +734,7 @@ const commonDescription: INodeProperties = {
 	noDataExpression: true,
 };
 
-export const pythonCodeDescription: INodeProperties[] =[
+export const pythonCodeDescription: INodeProperties[] = [
 	{
 		...commonDescription,
 		displayOptions: {

@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 
 const commonDescription: INodeProperties = {
 	displayName: 'Python',
-	name: 'pythonCode',
+	name: 'processorCode',
 	type: 'string',
 	typeOptions: {
 		editor: 'codeNodeEditor',

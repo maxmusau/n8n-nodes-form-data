@@ -31,7 +31,7 @@ import { standardizeOutput } from './utils';
 
 const { CODE_ENABLE_STDOUT } = process.env;
 
-import { formFields, skipRule, branching, config } from './common.description';
+import { formFields, config } from './common.description';
 export class DynamicMenu implements INodeType {
 	description: INodeTypeDescription = {
 		// Basic node details will go here
@@ -51,6 +51,74 @@ export class DynamicMenu implements INodeType {
 		properties: [
 			// Resources and operations will go here
 			{
+				displayName: 'Path',
+				name: 'path',
+
+				type: 'options',
+				typeOptions: {
+					multiline: true,
+				},
+				options: [
+					{
+						name: 'Main',
+						value: 'main',
+					},
+					{
+						name: 'Branch',
+						value: 'branch',
+					}
+				],
+
+				default: 'main',
+				description: 'Defines whether this is the natural path of the tree or a branch',
+				required: true,
+
+			},
+			{
+				displayName: 'Node Name',
+				name: 'nodeName',
+
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: '',
+				description: 'Short descriptive name of the tree',//Only used for identification and is not shown to users
+				required: true,
+
+			},
+
+			{
+				displayName: 'Node Type',
+				name: 'nodeType',
+
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: 'DYNAMIC_MENU',
+				description: 'Ddescribes the dynamic menu that does not have predetermined options',//Its options are
+				// derived from a JSONArray which can either be preconfigured or fetched from a database or
+				// 3rd party system
+				required: true,
+
+			},
+			
+			// menu configuration
+			config,
+
+			{
+				displayName: 'Validation Failure Text',
+				name: 'validationFailureText',
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+				},
+				default: '',
+				description: 'The validation failure text field displayed if the user enters an invalid value',
+
+			},
+			{
 				displayName: 'Menu Introduction Text',
 				name: 'menuIntroText',
 
@@ -66,177 +134,150 @@ export class DynamicMenu implements INodeType {
 				required: true,
 			},
 
-			config,
+
 
 			//displayfield
 			//jsonpath
 			// item count
 			// charcount
 
-			// Path
-
-
-			{
-				displayName: 'Path',
-				name: 'path',
-
-				type: 'string',
-				typeOptions: {
-					multiline: true,
-				},
-				default: '',
-				description: 'Defines whether this is the natural path of the tree or a branch',
-				required: true,
-
-			},
-
-
-
-
-
-			formFields,
-
-			//vaidation
-
-			//Input validation is only relevant for the form where the user is expected to provide an input
-
-			// {
-			// 	displayName: 'Validation',
-			// 	name: 'validation',
-
-			// 	type: 'string',
-			// 	typeOptions: {
-			// 		multiline: true,
-			// 	},
-			// 	default: '',
-			// 	description: 'Regular expression for the validation',
-
-			// },
-
-
-
+			// Status
 
 			{
 				displayName: 'Status',
 				name: 'status',
 
-				type: 'string',
+				type: 'options',
 				typeOptions: {
 					multiline: true,
 				},
-				default: 'Active',
+				default: 'active',
 				description: 'Displays whether the status is active or not',
 				required: true,
+				options: [
+					{
+						name: 'Active',
+						value: 'active',
+					},
+					{
+						name: 'Inactive',
+						value: 'inactive',
+					},
+					{
+						name: 'Test',
+						value: 'test',
+
+
+					},
+				],
+
 
 			},
 
-
-			// {
-			// 	displayName: 'Processors',
-			// 	name: 'processors',
-			// 	type: 'collection',
-			// 	default: {},
-			// 	description: 'Processors to transform data',
-			// 	placeholder: 'Add Processor',
-			// 	options: [
-			// 		{
-			// 			displayName: 'Processor {{Name}} Name Name or ID',
-			// 			name: 'preProcessor',
-			// 			type: 'options',
-			// 			default: '',
-			// 			typeOptions: {
-			// 				loadOptionsMethod: 'getProcessors',
-			// 			},
-			// 			description: 'Choose from the list or specify an ID. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-			// 		},
-			// 	],
-			// },
-
-
+			formFields,
 
 			// function code section
 			// ...pythonCodeDescription,
-			//Processor
 
-			// select language
-
+			//Processors
 			{
-				displayName: 'Select Language',
-				name: 'language',
+				displayName: 'Choose a Processor',
+				name: 'processors',
+				type: 'fixedCollection',
+				typeOptions: {
+					multiline: true,
+				},
+				default: {},
+				description: 'Displays the processor to be executed',
+				// required: true,
+				options: [
+					{
+						displayName: 'Pre Processor',
+						name: 'preProcessor',
+						values: [
+							{
+								displayName: 'Value',
+								name: 'preProcessor',
+								default: '',
+								type: 'string',
+							}
+						]
+					},
+					{
+						displayName: 'Input Processor',
+						name: 'inputProcessor',
+						values: [
+							{
+								displayName: 'Name',
+								name: 'inputProcessor',
+								default: '',
+								type: 'string',
+							}
+						]
+					},
+
+					{
+						displayName: 'Post Processor',
+						name: 'postProcessor',
+						values: [
+							{
+								displayName: 'Name',
+								name: 'postProcessor',
+								default: '',
+								type: 'string',
+							}
+						]
+					},
+				],
+			},
+
+			// Function section
+			{
+				displayName: 'Mode',
+				name: 'mode',
 				type: 'options',
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Javascript',
-						value: 'javascriptLanguage',
-						description: 'Write code using Javascript language',
+						name: 'Run Once for All Items',
+						value: 'runOnceForAllItems',
+						description: 'Run this code only once, no matter how many input items there are',
 					},
 					{
-						name: 'Python',
-						value: 'pythonLanguage',
-						description: 'Write code using Python',
-					},
-					{
-						name: 'Java',
-						value: 'JavaLanguage',
-						description: 'Write code using Java',
+						name: 'Run Once for Each Item',
+						value: 'runOnceForEachItem',
+						description: 'Run this code as many times as there are input items',
 					},
 				],
-				default: 'javascriptLanguage',
+				default: 'runOnceForAllItems',
 			},
-
-
-
-
-			// Function section
-			// {
-			// 	displayName: 'Mode',
-			// 	name: 'mode',
-			// 	type: 'options',
-			// 	noDataExpression: true,
-			// 	options: [
-			// 		{
-			// 			name: 'Run Once for All Items',
-			// 			value: 'runOnceForAllItems',
-			// 			description: 'Run this code only once, no matter how many input items there are',
-			// 		},
-			// 		{
-			// 			name: 'Run Once for Each Item',
-			// 			value: 'runOnceForEachItem',
-			// 			description: 'Run this code as many times as there are input items',
-			// 		},
-			// 	],
-			// 	default: 'runOnceForAllItems',
-			// },
-			// {
-			// 	displayName: 'Language',
-			// 	name: 'language',
-			// 	type: 'options',
-			// 	noDataExpression: true,
-			// 	displayOptions: {
-			// 		show: {
-			// 			'@version': [2],
-			// 		},
-			// 	},
-			// 	options: [
-			// 		{
-			// 			name: 'JavaScript',
-			// 			value: 'javaScript',
-			// 		},
-			// 		{
-			// 			name: 'Python (Beta)',
-			// 			value: 'python',
-			// 		},
-			// 	],
-			// 	default: 'javaScript',
-			// },
+			{
+				displayName: 'Language',
+				name: 'language',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						'@version': [2],
+					},
+				},
+				options: [
+					{
+						name: 'JavaScript',
+						value: 'javaScript',
+					},
+					{
+						name: 'Python (Beta)',
+						value: 'python',
+					},
+				],
+				default: 'javaScript',
+			},
 			...javascriptCodeDescription,
 			// ...pythonCodeDescription,
 
-
-
 			{
-				displayName: 'Processors',
+				displayName: 'Languages',
 				name: 'language',
 				type: 'hidden',
 				displayOptions: {
@@ -244,14 +285,62 @@ export class DynamicMenu implements INodeType {
 						'@version': [1],
 					},
 				},
-				default: 'Processors',
+				default: 'Javascript',
 			},
 
 			//skip rule
-			skipRule,
+			{
+				displayName: 'Skip Rule',
+				name: 'skipRule',
 
-			branching,
+				type: 'string',
+				typeOptions: {
+					multiline: true,
+					rows: 2,
+				},
+				default: '',
+				description: 'Defines the rule to skip this node',
 
+			},
+
+			// branching
+			{
+				displayName: 'Branching Rule',
+				name: 'branching',
+				type: 'fixedCollection',
+				typeOptions: {
+					multiline: true,
+				},
+				default: {},
+				description: 'Displays the branching rule to be executed',
+				// required: true,
+				options: [
+					{
+						displayName: 'Node Branch',
+						name: 'node',
+						values: [
+							{
+								displayName: 'Branching Rule',
+								name: 'rule',
+								default: '',
+								type: 'string',
+							}
+						]
+					},
+					{
+						displayName: 'Text Branch',
+						name: 'text',
+						values: [
+							{
+								displayName: 'Branching Rule',
+								name: 'rule',
+								default: '',
+								type: 'string',
+							}
+						]
+					},
+				],
+			},
 			//flags
 			{
 				displayName: 'Flags',
@@ -267,13 +356,7 @@ export class DynamicMenu implements INodeType {
 						type: 'boolean',
 						default: false,
 					},
-					{
-						displayName: 'Encrypt',
-						name: 'encrypt',
-						type: 'boolean',
-						default: false,
-						description: 'Whether or not to Encrypt user input',
-					},
+
 					{
 						displayName: 'Last Node',
 						name: 'lastNode',
@@ -415,8 +498,8 @@ export class DynamicMenu implements INodeType {
 }
 
 
-		// "SkipRule Functionlity";
-		// code to execute the skipRule functionality
+// "SkipRule Functionlity";
+// code to execute the skipRule functionality
 
 
 

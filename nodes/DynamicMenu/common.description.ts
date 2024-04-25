@@ -24,16 +24,16 @@ export const formFields: INodeProperties = {
 					type: 'string',
 					default: '',
 					placeholder: 'Subscriber ID',
-					description: 'Label appears above the input field',
+					description: 'Describes the name of the Variable',
 				},
 				{
 					displayName: 'Variable Type',
-					name: 'fieldLabel',
+					name: 'fieldLabel2',
 					type: 'options',
 					default: 'string',
 					noDataExpression: true,
 					// placeholder: 'Subscriber ID',
-					description: 'Label appears above the input field',
+					description: 'The type of the variable',
 					options: [
 						//String, Number, JSONArray, JSONObject
 						{
@@ -57,11 +57,6 @@ export const formFields: INodeProperties = {
 
 				},
 
-
-
-
-
-
 				// add the input field for entering the field value
 				{
 					displayName: 'Value',
@@ -69,7 +64,7 @@ export const formFields: INodeProperties = {
 					type: 'string',
 					default: '',
 					placeholder: 'Enter value e.g 1023',
-					description: 'Value of the input field',
+					description: 'Dscribs the Value of the input variable',
 					required: true,
 				},
 
@@ -96,7 +91,7 @@ export const config: INodeProperties = {
 	options: [
 		{
 			displayName: 'Values',
-			name: 'values',
+			name: 'config',
 			values: [
 				{
 					displayName: 'JsonPath',
