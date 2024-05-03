@@ -40,7 +40,7 @@ export class MenuItem implements INodeType {
 
 		displayName: 'Menu Item',
 		name: 'MenuItem',
-		icon: 'file:menuitem.png',
+		icon: 'file:menuitem.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: 'Menu Node',

@@ -9,7 +9,7 @@
   "homepage": "https://n8n.io",
   "author": {
     "name": "maxwell",
-    "email": "maxwell@gmail.com"
+    "email": "musaumaxwell@gmail.com"
   },
   "repository": {
     "type": "git",
@@ -19,22 +19,26 @@
   "scripts": {
     "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "format": "prettier nodes --write",
+    "lint": "eslint nodes package.json",
+    "lintfix": "eslint nodes package.json --fix",
+
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes package.json"
   },
   "files": [
     "dist"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [],
+    "credentials": [
+
+    ],
     "nodes": [
       "dist/nodes/FormData/FormData.node.js",
       "dist/nodes/DynamicMenu/DynamicMenu.node.js",
       "dist/nodes/MenuItem/MenuItem.node.js",
-      "dist/nodes/MenuNode/MenuNode.node.js"
+      "dist/nodes/MenuNode/MenuNode.node.js",
+      "dist/nodes/DynamicMenu1/DynamicMenu1.node.js"
     ]
   },
   "devDependencies": {

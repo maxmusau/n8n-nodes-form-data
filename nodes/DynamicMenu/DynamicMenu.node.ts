@@ -38,7 +38,7 @@ export class DynamicMenu implements INodeType {
 
 		displayName: 'Dynamic Menu',
 		name: 'DynamicMenu',
-		icon: 'file:dynamicmenu.png',
+		icon: 'file:dynamicmenu.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: 'Dynamic Menu ',

@@ -36,7 +36,7 @@ export class FormData implements INodeType {
 
 		displayName: 'Form',
 		name: 'FormData',
-		icon: 'file:form.png',
+		icon: 'file:form.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: 'Form Node',
